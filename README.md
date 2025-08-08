@@ -1,20 +1,20 @@
 <h1>Project Name</h1>
-Always use Error object in log and throw
-
-
+Log and Catch Errors with the Error Object
 
 <h2>Project Description</h2>
 <p>
-  This project demonstrates the critical importance of proper error handling in JavaScript and TypeScript. It provides practical examples showing why using the built-in <strong><code>Error</code> object</strong> is superior to using plain strings for both throwing and logging errors. By consistently using <code>Error</code> objects, you can ensure that your applications generate detailed <strong>stack traces</strong>, which are essential for effective debugging and root cause analysis.
+  This project demonstrates the importance of proper error handling in JavaScript and TypeScript.
+  It provides clear examples that show why using the built-in <code>Error</code> object is superior
+  to throwing or logging plain strings. When you use <code>Error</code> objects, stack traces are preserved,
+  which is essential for effective debugging and understanding the root cause of errors.
 </p>
 
 <h2>Motivation</h2>
-you have error and you want to log it : should you use string or Error object
-
-two use cases
-- inside catch
-- outside catch
-
+<p>You have an error and you want to log it: should you use a string or an <code>Error</code> object? The answer is always to use an <code>Error</code> object, and this is especially important for two key use cases:</p>
+<ul>
+  <li>inside a catch block</li>
+  <li>outside a catch block</li>
+</ul>
 
 <h2>Installation</h2>
 
@@ -22,22 +22,20 @@ two use cases
 pnpm i
 ```
 
-
 <h2>Usage</h2>
 
 ```bash
 pnpm run dev
 ```
 
-
 <h2>Technologies Used</h2>
 typescript
 
-
-
 <h2>Demo</h2>
 
-<h3>throw string and catch</h3>
+<p>The following examples illustrate the difference between throwing and logging strings versus <code>Error</code> objects.</p>
+
+<h3>1. Throwing a string</h3>
 
 ```ts
 try {
@@ -47,14 +45,13 @@ try {
   console.log(e);
 }
 ```
-The result as follows : only the string "A plain string error" appear but no stack trace
 
-<img src='./figs/throw-string.png'/>
+<p> The result: only the string "A plain string error" is printed. No stack trace is available. </p> 
+<img src="./figs/throw-string.png" alt="Output of catching a thrown string without stack trace" />
 
-<h3>throw Error object and catch</h3>
+<h3>2. Throwing an Error object</h3>
 
 ```ts
-
 try {
   throw new Error("An Error error");
 } catch (e) {
@@ -63,44 +60,49 @@ try {
 }
 ```
 
-The result as follows : the string "An Error error" appear and also stack trace so you can see which file (index.ts) and line (9) the error was thrown. Looking at log with stack trace make debugging much simpler
+<p>
+  The result is as follows: the message <code>"An Error error"</code> appears along with a full stack trace, 
+  showing the exact file (<code>index.ts</code>) and line number (<code>9</code>) where the error was thrown. 
+  Logging with stack traces makes debugging much simpler.
+</p>
 
+<img src="./figs/throw-error.png" alt="Output of catching a thrown Error object with stack trace" />
 
-<img src='./figs/throw-error.png'/>
-
-<h3>throw string and catch with unknown handling</h3>
+<h3>3. Catching unknown and converting to Error</h3>
 
 ```ts
 try {
   throw "A plain string error with unknown handling";
 } catch (e) {
   // -- e is unknown
-  const finalError = UnknownError2ErrorIfRequired(e)
+  const finalError = UnknownError2ErrorIfRequired(e);
   console.log(finalError);
 }
 ```
 
-The result as follows : the string "A plain string error with unknown handling" appear and also stack trace so you can see which file (index.ts) and line (26) .However you dont see the throw line because it was on string, instead you see the line where the Error object was create. 
+<p>
+  The result is as follows: the string <code>"A plain string error with unknown handling"</code> appears, 
+  along with a stack trace showing the file (<code>index.ts</code>) and line number (<code>26</code>).
+  However, since the original error was a string, the stack trace points to where the <code>Error</code> object 
+  was created—not where the string was thrown.
+</p>
 
-<img src='./figs/throw-string-handle-unknown.png'/>
+<img src="./figs/throw-string-handle-unknown.png" alt="Handled unknown error converted into Error object" />
 
-<h3>log error</h3>
+<h3>4. Logging string vs. Error</h3>
 
-as string - in orange. you see just the string "log error as string"
+<p><strong>Logging a string</strong> (orange): only the message "log error as string" is shown.</p> <p><strong>Logging an Error object</strong> (red): includes both the message and a full stack trace, showing the exact file and line where the error was created.</p>
 
-as Error object in red. you see the string "log error as Error object" with stack trace that includes the file (index.ts) and line (36) where the Error object was created
+ <img src="./figs/log-error.png" alt="Visual comparison of string log vs. Error object log" />
 
-<img src='./figs/log-error.png'/>
-
-<h2>Key takaways</h2>
-<ul>
-    <li>Always was Error object in throw and log</li>
-    <li>Create Error object from unknown error in catch</li>
-   
+<h2>Key Takeaways</h2> 
+<ul> 
+<li>Always use <code>Error</code> objects when throwing or logging errors</li> 
+<li>In <code>catch</code> blocks, convert unknown values to <code>Error</code> objects for consistent logging</li> 
 </ul>
+
 
 <h2>References</h2>
 <ul>
     <li><a href='https://youtu.be/TsDjJ5LuJtc?si=UNB-VVikfH_AHVgU'> using ts-node in a node typescript project setup </a></li>
 </ul>
-
