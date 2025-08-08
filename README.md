@@ -29,7 +29,24 @@ pnpm run dev
 ```
 
 <h2>Technologies Used</h2>
-TypeScript
+<ul>
+<li>TypeScript</li>
+<li>Node.js</li>
+</ul>
+
+<h2>Code</h2>
+This function is used later in the demo
+
+```ts
+/**
+ * Ensures that a value is an instance of Error.
+ * If the value is not an Error, it is wrapped in a new Error object.
+ * This is useful for `catch` blocks that might receive non-Error values.
+ */
+export const UnknownError2ErrorIfRequired = (error: unknown): Error => {
+  return error instanceof Error ? error : new Error(String(error));
+};
+```
 
 <h2>Demo</h2>
 
@@ -90,6 +107,12 @@ try {
 <img src="./figs/throw-string-handle-unknown.png" alt="Handled unknown error converted into Error object" />
 
 <h3>4. Logging string vs. Error</h3>
+
+```ts
+console.error('log error as string')
+console.error(new Error('log error as Error object'))
+
+```
 
 <p><strong>Logging a string</strong> (orange): only the message "log error as string" is shown.</p> <p><strong>Logging an Error object</strong> (red): includes both the message and a full stack trace, showing the exact file and line where the error was created.</p>
 
