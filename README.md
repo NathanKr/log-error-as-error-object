@@ -29,7 +29,7 @@ pnpm run dev
 ```
 
 <h2>Technologies Used</h2>
-typescript
+TypeScript
 
 <h2>Demo</h2>
 
